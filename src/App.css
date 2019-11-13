@@ -20,3 +20,38 @@
 .App-link {
   color: #09d3ac;
 }
+
+/*spin animation*/
+
+div.loading-container {
+  margin: auto;
+  padding-top: 10%;
+}
+
+div.loading svg {
+  margin: auto
+;
+  width: auto;
+  height: auto;
+
+  animation-name: spin;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  overflow: hidden;
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.jumbo {
+  background-color: #f62d14!important;
+}
+/*spin end*/
