@@ -13,7 +13,7 @@ class DataContainer extends React.Component {
     }
 
     componentDidMount() {
-        const url = 'http://localhost:8080/pokes';
+        const url = 'http://localhost:8080/pokemon/';
         fetch(url)
             .then(res => res.json())
             .then(
@@ -40,9 +40,7 @@ class DataContainer extends React.Component {
             return <Loading/>;
         } else {
             return (
-                <div className={'card-container'}>
-                    <PokemonCards response={response}/>
-                </div>
+                <PokemonCards response={response}/>
             );
         }
     }

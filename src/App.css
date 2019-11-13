@@ -25,7 +25,6 @@
 
 div.loading-container {
   margin: auto;
-  padding-top: 10%;
 }
 
 div.loading svg {
@@ -55,3 +54,28 @@ div.loading svg {
   background-color: #f62d14!important;
 }
 /*spin end*/
+
+.card-container {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: stretch;
+  -ms-flex-line-pack: stretch;
+  align-content: stretch;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+.card{
+  margin:5px;
+}

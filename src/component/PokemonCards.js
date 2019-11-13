@@ -1,26 +1,15 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import Accordion from "react-bootstrap/Accordion";
 
 function PokemonCards(props) {
     const pokemons = props.response;
-    console.log(pokemons);
-    console.log("asd");
     return (
-        <div>
+        <div className={'card-container'}>
             {pokemons.map(
                 pokemon => (
-                    <Accordion>
-                        <Card>
-                            <Accordion.Toggle as={Card.Header} eventKey={pokemon.name}>
-                                {/*<Image id={pokemon.id}/>{pokemon.name}*/}
-                                {pokemon.url} {pokemon.name}
-                            </Accordion.Toggle>
-                            <Accordion.Collapse eventKey={pokemon.name}>
-                                <Card.Body>Kukuccs!</Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                    </Accordion>
+                    <Card bg="light" style={{width: '18rem'}} key={pokemon.name}>
+                        <Card.Header>{Capitalize(pokemon.name)}</Card.Header>
+                    </Card>
                 )
             )}
         </div>
@@ -34,5 +23,11 @@ function Image(props) {
         <img src={srcUrl} alt="new"/>
     )
 }
+
+function Capitalize(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+//React-Router TODO
 
 export default PokemonCards;
