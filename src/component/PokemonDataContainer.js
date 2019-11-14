@@ -3,6 +3,7 @@ import Loading from "./Loading";
 import PokemonCards, {Buttons} from "./PokemonCards";
 
 class DataContainer extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -13,6 +14,8 @@ class DataContainer extends React.Component {
     }
 
     componentDidMount() {
+        // eslint-disable-next-line no-unused-vars
+        const enciIp = 'http://10.44.1.146:8080/pokemon/';
         const url = 'http://localhost:8080/pokemon/';
         fetch(url)
             .then(res => res.json())
