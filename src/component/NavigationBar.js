@@ -1,22 +1,20 @@
 import React from "react";
-import Nav from "react-bootstrap/Nav";
+import {Link} from 'react-router-dom'
 
 function NavigationBar() {
-    return(
-        <Nav className={'Navbar'} fill variant="pills" defaultActiveKey="#">
-            <Nav.Item>
-                <Nav.Link href="#">All Pokemons</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-1">Search Pokemon</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-2" disabled>Login</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-3" disabled>Register</Nav.Link>
-            </Nav.Item>
-        </Nav>
+    return (
+        <nav className={'navigation-bar'}>
+            <ul className={'nav-links'}>
+                <Link to={'/'} style={{textDecoration: 'none', color: 'yellow'}}>
+                    <li>All Pokemons</li>
+                </Link>
+                <Link to={'/search'} style={{textDecoration: 'none', color: 'yellow'}}>
+                    <li>Search Pokemon</li>
+                </Link>
+                <li>Login</li>
+                <li>Register</li>
+            </ul>
+        </nav>
     )
 
 }

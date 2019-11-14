@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 function PokemonCards(props) {
     const pokemons = props.response;
@@ -24,6 +25,18 @@ function Image(props) {
     )
 }
 
+export function Buttons(props){
+    return(
+        <div className="nav-buttons">
+            <Button variant="warning" className="nav-button-previous nav-button">Previous</Button>
+            <Button variant="danger" className="nav-button-next nav-button">Next</Button>
+        </div>
+    )
+}
+
+/**
+ * @return {string}
+ */
 function Capitalize(str){
     return str.charAt(0).toUpperCase() + str.slice(1);
 }

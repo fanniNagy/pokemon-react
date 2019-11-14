@@ -1,6 +1,6 @@
 import React from "react";
 import Loading from "./Loading";
-import PokemonCards from "./PokemonCards";
+import PokemonCards, {Buttons} from "./PokemonCards";
 
 class DataContainer extends React.Component {
     constructor(props) {
@@ -40,7 +40,10 @@ class DataContainer extends React.Component {
             return <Loading/>;
         } else {
             return (
-                <PokemonCards response={response}/>
+                <div>
+                    <PokemonCards response={response}/>
+                    <Buttons/>
+                </div>
             );
         }
     }
