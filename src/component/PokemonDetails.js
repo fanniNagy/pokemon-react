@@ -14,7 +14,7 @@ function PokemonDetails(props) {
 
     return (
         <div className={'pokemon-card-container'}>
-            <Card style={{width: '16rem'}}>
+            <Card style={{width: '18rem'}}>
                 <Card.Img variant="top" src={url}/>
                 <Card.Body>
                     <Card.Title>{Capitalize(data.name)}</Card.Title>
@@ -37,7 +37,7 @@ function DisplayType(props) {
         <div>
             {types.map(
                 (type, i) => (
-                    <Button style={{margin:'1px'}} variant="danger" key={i}>{Capitalize(type.name)}</Button>
+                    <Button style={{margin:'1px'}} variant="danger" key={i} className={type.name} >{Capitalize(type.name)}</Button>
                 )
             )}
         </div>

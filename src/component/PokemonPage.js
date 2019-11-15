@@ -12,8 +12,7 @@ function PokemonPage({match}) {
         async function fetchData() {
             setLoading(true);
             const response = await fetch(`http://localhost:8080/pokemon/name/${match.params.name}`);
-            if (response.status === 404){
-                console.log("HIBA");
+            if (response.status === 404) {
                 setErrors(true);
                 setLoading(false);
             } else {
@@ -27,7 +26,7 @@ function PokemonPage({match}) {
     }, [match.params.name]);
 
     if (hasError) {
-        return <div>Error: something went wrong.</div>;
+        return <div className={'error-container'}>Pokemon not found!</div>;
     } else if (loading) {
         return <Loading/>;
     } else {
