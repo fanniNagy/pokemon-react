@@ -5,6 +5,7 @@ import NavigationBar from "../component/NavigationBar";
 import PokemonPage from '../component/PokemonPage'
 import DataContainer from "../component/PokemonDataContainer";
 import Search from "../component/Search";
+import User from "../component/UserPage";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 
@@ -17,6 +18,7 @@ function App() {
                     <Route path='/' exact component={DataContainer}/>
                     <Route path='/search' component={Search}/>
                     <Route path='/pokemon/:name' component={PokemonPage}/>
+                    <Route path='/profile' component={User}/>
                 </Switch>
             </div>
         </Router>

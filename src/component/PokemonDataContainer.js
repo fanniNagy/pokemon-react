@@ -15,8 +15,8 @@ class DataContainer extends React.Component {
 
     componentDidMount() {
         // eslint-disable-next-line no-unused-vars
-        const enciIp = 'http://10.44.1.146:8080/pokemon/';
-        const url = 'http://localhost:8080/pokemon/';
+        //const enciIp = 'http://10.44.17.230:8080/pokemon/';
+        const url = 'http://10.44.17.230:8080/pokemon/';
         fetch(url)
             .then(res => res.json())
             .then(

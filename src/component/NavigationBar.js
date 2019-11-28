@@ -1,12 +1,12 @@
 import React from "react";
 import {Link} from 'react-router-dom'
-import Jumbo from "./Jumbotron";
+import Logo from "./PokeLogo";
 
 
 function NavigationBar() {
     return (
         <div className={"header"}>
-            <Jumbo/>
+            <Logo/>
             <nav className={'navigation-bar'}>
                 <ul className={'nav-links'}>
                     <Link to={'/'} style={{textDecoration: 'none', color: 'yellow'}}>

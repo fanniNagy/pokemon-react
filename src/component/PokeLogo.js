@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Jumbo() {
+function Logo() {
     return (
         <div className={"jumbo"}>
             <h1 className={'jumbo-h1'}>
@@ -10,4 +10,4 @@ function Jumbo() {
     )
 }
 
-export default Jumbo;
+export default Logo;
