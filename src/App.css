@@ -318,3 +318,12 @@ div.card-header {
 .error-container {
     margin-top: 40px;
 }
+
+.icon-container{
+    justify-content: center;
+    display: inline-flex;
+}
+.paw-container, .star-container, .heart-container{
+    margin-left: 1vh;
+    padding-right: 1vh;
+}

@@ -18,7 +18,7 @@ function App() {
                     <Route path='/' exact component={DataContainer}/>
                     <Route path='/search' component={Search}/>
                     <Route path='/pokemon/:name' component={PokemonPage}/>
-                    <Route path='/profile' component={User}/>
+                    <Route path='/profile'  exact component={User}/>
                 </Switch>
             </div>
         </Router>

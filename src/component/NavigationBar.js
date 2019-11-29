@@ -15,6 +15,9 @@ function NavigationBar() {
                     <Link to={'/search'} style={{textDecoration: 'none', color: 'yellow'}}>
                         <li>Search Pokemon</li>
                     </Link>
+                    <Link to={'/profile'} style={{textDecoration: 'none', color: 'yellow'}}>
+                        <li> Profile </li>
+                    </Link>
                     {/*<li>Login</li>*/}
                     {/*<li>Register</li>*/}
                 </ul>
