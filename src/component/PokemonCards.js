@@ -10,10 +10,12 @@ function PokemonCards(props) {
             {pokemons.map(
                 pokemon => (
                     <Link to={`/pokemon/${pokemon.name}`} key={pokemon.name}>
-                        <Card bg="light" style={{width: '18rem'}} >
-                            <Card.Header>
+                        <Card bg="light" style={{width: '18rem', justifyContent:'center', alignItems:'center'}} >
+                            <Card.Img style={{width:'20vh', height: '20vh'  }} variant="top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} />
+                            <Card.Header style={{backgroundColor:'transparent'}}>
                                 {Capitalize(pokemon.name)}
                             </Card.Header>
+
                         </Card>
                     </Link>
                 )

@@ -326,4 +326,8 @@ div.card-header {
 .paw-container, .star-container, .heart-container{
     margin-left: 1vh;
     padding-right: 1vh;
+    background-color: transparent;
+    border:none;
+    outline: none;
+    cursor: pointer;
 }

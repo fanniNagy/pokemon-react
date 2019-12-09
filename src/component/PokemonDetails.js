@@ -50,9 +50,9 @@ function PokemonDetails(props) {
                     <ListGroupItem>Height: ~ {data.height / 10} m</ListGroupItem>
                     <ListGroupItem>
                         <div className="icon-container">
-                            <div className='heart-container'> {heartIcon} </div>
-                            <div className='star-container'> {starIcon} </div>
-                            <div onClick={() => saveToCatchedList(data.id)} className='paw-container'> {pawIcon} </div>
+                            <button className='heart-container'> {heartIcon} </button>
+                            <button className='star-container'> {starIcon} </button>
+                            <button onClick={() => saveToCatchedList(data.id)} className='paw-container'> {pawIcon} </button>
                         </div>
                     </ListGroupItem>
                 </ListGroup>
@@ -66,7 +66,7 @@ function saveToCatchedList(id){
     fetch(`http://localhost:8080/pokemon/mypokemon/add/${id}`, {
         method: 'PUT',
     })
-        .then((response) => response.json())
+        .then((response) => response.text())
         .catch((error) => {
             console.error(error);
             //TODO: proper error handling

@@ -26,7 +26,7 @@ function UserPage({match}) {
     }, [match.params.name]);
 
     if (hasError) {
-        return <div className={'error-container'}>User not found!</div>;
+        return <div className={'error-container'}>Not implemented yet!</div>;
     } else if (loading) {
         return <Loading/>;
     } else {
