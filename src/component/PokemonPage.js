@@ -12,7 +12,7 @@ function PokemonPage({match}) {
         async function fetchData() {
             setLoading(true);
             const response = await fetch(`http://localhost:8080/pokemon/name/${match.params.name}`);
-            if (response.status === 404) {
+            if (response.status === 404 || response.status === 403) {
                 setErrors(true);
                 setLoading(false);
             } else {
