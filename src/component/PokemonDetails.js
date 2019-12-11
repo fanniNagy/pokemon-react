@@ -1,5 +1,4 @@
 import React from "react";
-import {Capitalize} from "./PokemonCards";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
@@ -41,7 +40,7 @@ function PokemonDetails(props) {
             <Card style={{width: '18rem'}}>
                 <Card.Img variant="top" src={url}/>
                 <Card.Body>
-                    <Card.Title>{Capitalize(data.name)}</Card.Title>
+                    <Card.Title>{data.name}</Card.Title>
                 </Card.Body>
                 <DisplayType types={data.types}/>
                 <Abilities abilities={data.abilities}/>
@@ -80,7 +79,7 @@ function DisplayType(props) {
             {types.map(
                 (type, i) => (
                     <Button style={{margin: '1px'}} variant="danger" key={i}
-                            className={type.name}>{Capitalize(type.name)}</Button>
+                            className={type.name}>{type.name}</Button>
                 )
             )}
         </div>
@@ -96,7 +95,7 @@ function Abilities(props) {
                                 key="right">
                     {abilities.map(
                         (ability, i) => (
-                            <Dropdown.Item eventKey={i} key={`${i}-key`}>{Capitalize(ability.name)}</Dropdown.Item>
+                            <Dropdown.Item eventKey={i} key={`${i}-key`}>{ability.name}</Dropdown.Item>
                         )
                     )}
                 </DropdownButton>

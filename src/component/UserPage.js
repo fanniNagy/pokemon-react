@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Loading from "./Loading";
 import PokemonDetails from "./PokemonDetails";
 
@@ -12,7 +12,7 @@ function UserPage({match}) {
         async function fetchData() {
             setLoading(true);
             const response = await fetch(`http://localhost:8080/pokemon/name/${match.params.name}`);
-            if (response.status === 404) {
+            if (response.status === 404 || response.status === 403) {
                 setErrors(true);
                 setLoading(false);
             } else {

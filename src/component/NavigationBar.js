@@ -5,6 +5,7 @@ import Logo from "./PokeLogo";
 
 function NavigationBar() {
     return (
+
         <div className={"header"}>
             <Logo/>
             <nav className={'navigation-bar'}>
@@ -16,10 +17,17 @@ function NavigationBar() {
                         <li>Search Pokemon</li>
                     </Link>
                     <Link to={'/profile'} style={{textDecoration: 'none', color: 'yellow'}}>
-                        <li> Profile </li>
+                        <li> Profile</li>
                     </Link>
-                    {/*<li>Login</li>*/}
-                    {/*<li>Register</li>*/}
+                    <Link to={'/login'} style={{textDecoration: 'none', color: 'yellow'}}>
+                        <li> Login</li>
+                    </Link>
+                    <Link to={'/register'} style={{textDecoration: 'none', color: 'yellow'}}>
+                        <li> Register</li>
+                    </Link>
+                    <Link to={'/'} style={{textDecoration: 'none', color: 'yellow'}}>
+                        <li> Logout</li>
+                    </Link>
                 </ul>
             </nav>
         </div>

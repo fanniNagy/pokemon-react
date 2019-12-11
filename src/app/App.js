@@ -6,7 +6,8 @@ import PokemonPage from '../component/PokemonPage'
 import DataContainer from "../component/PokemonDataContainer";
 import Search from "../component/Search";
 import User from "../component/UserPage";
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import Login from "../component/Login";
 
 
 function App() {
@@ -18,7 +19,9 @@ function App() {
                     <Route path='/' exact component={DataContainer}/>
                     <Route path='/search' component={Search}/>
                     <Route path='/pokemon/:name' component={PokemonPage}/>
-                    <Route path='/profile'  exact component={User}/>
+                    <Route path='/profile' exact component={User}/>
+                    <Route path='/login' exact component={Login}/>
+                    <Route path='/register' exact component={User}/>
                 </Switch>
             </div>
         </Router>
