@@ -11,7 +11,8 @@ function Search() {
                 <Form.Control required size="lg" type="text" placeholder="Pokemon's name"
                               className={'search-bar'} {...input}/>
             </Form>
-            <Button variant="warning" type="submit" className={'search-button'}>
+            <Button variant="warning" type="submit" className={'search-button'} onClick={submitHandler}
+                    disabled={!validateForm()}>
                 Search
             </Button>
         </div>
@@ -20,6 +21,10 @@ function Search() {
     function submitHandler(event) {
         event.preventDefault();
         window.location.href = `/pokemon/${input.value}`
+    }
+
+    function validateForm() {
+        return input.value.length > 0;
     }
 }
 
