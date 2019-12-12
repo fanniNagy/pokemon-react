@@ -10,6 +10,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Login from "../component/Login";
 import UserContext from "../component/authorization/UserContext"
 import Registration from "../component/Registration";
+import IVCalculatorContainer from "../component/IVCalculatorPage";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                         <Route path='/profile' exact component={User}/>
                         <Route path='/login' exact component={Login}/>
                         <Route path='/register' exact component={Registration}/>
+                        <Route path='/ivcalculator' exact component={IVCalculatorContainer}/>
                     </Switch>
                 </div>
             </UserContext.Provider>
