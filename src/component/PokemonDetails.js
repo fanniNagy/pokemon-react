@@ -36,8 +36,10 @@ function PokemonDetails(props) {
                     {(user !== null) ?
                         <ListGroupItem>
                             <div className="icon-container">
-                                <button className='heart-container'><HeartIcon styleForIcon={svgSize}/></button>
-                                <button className='star-container'><StarIcon styleForIcon={svgSize}/></button>
+                                <button onClick={() => saveToFavourite(data.id, user)} className='heart-container'>
+                                    <HeartIcon styleForIcon={svgSize}/></button>
+                                <button onClick={() => saveToWishList(data.id, user)} className='star-container'>
+                                    <StarIcon styleForIcon={svgSize}/></button>
                                 <button onClick={() => saveToCatchedList(data.id, user)}
                                         className='paw-container'><PawIcon styleForIcon={svgSize}/></button>
                             </div>
@@ -55,6 +57,42 @@ function saveToCatchedList(id, user) {
     const token = user ? user.token : null;
 
     fetch(`http://localhost:8080/pokemon/mypokemon/add/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+        .then((response) => response.text())
+        .catch((error) => {
+            console.error(error);
+            //TODO: proper error handling
+        });
+}
+
+function saveToWishList(id, user) {
+
+    const token = user ? user.token : null;
+
+    fetch(`http://localhost:8080/pokemon/wishlist/add/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+        .then((response) => response.text())
+        .catch((error) => {
+            console.error(error);
+            //TODO: proper error handling
+        });
+}
+
+function saveToFavourite(id, user) {
+
+    const token = user ? user.token : null;
+
+    fetch(`http://localhost:8080/pokemon/favourites/add/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
