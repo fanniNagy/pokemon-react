@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import useInput from "../hooks/inputHook";
 
-function Search() {
+function Search(props) {
     let input = useInput();
     return (
         <div className={'search-container'}>
@@ -20,7 +20,7 @@ function Search() {
 
     function submitHandler(event) {
         event.preventDefault();
-        window.location.href = `/pokemon/${input.value}`
+        props.history.push(`/pokemon/${input.value}`)
     }
 
     function validateForm() {
