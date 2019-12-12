@@ -1,54 +1,44 @@
-import React from "react";
-import Loading from "./Loading";
+import React, {useEffect, useState} from "react";
+import Loading from "./svg components/Loading";
 import PokemonCards, {Buttons} from "./PokemonCards";
 
-class DataContainer extends React.Component {
+function DataContainer() {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: null,
-            isLoaded: false,
-            response: []
-        };
-    }
+    const [error, hasError] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [response, setResponse] = useState({});
 
-    componentDidMount() {
-        // eslint-disable-next-line no-unused-vars
-        //const enciIp = 'http://10.44.17.230:8080/pokemon/';
-        const url = 'http://localhost:8080/pokemon/';
-        fetch(url)
-            .then(res => res.json())
-            .then(
-                result => {
-                    this.setState({
-                        isLoaded: true,
-                        response: result
-                    });
-                },
-                error => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
+
+    useEffect(() => {
+            async function fetchData() {
+                setLoading(true);
+                const response = await fetch("http://localhost:8080/pokemon/");
+                if (response.status === 404 || response.status === 403) {
+                    hasError(true);
+                    setLoading(false);
+                } else {
+                    const data = await response.json();
+                    setResponse(data);
+                    hasError(false);
+                    setLoading(false);
                 }
-            );
-    }
+            }
 
-    render() {
-        const {error, isLoaded, response} = this.state;
-        if (error) {
-            return <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
-            return <Loading/>;
-        } else {
-            return (
-                <div>
-                    <PokemonCards response={response}/>
-                    <Buttons/>
-                </div>
-            );
-        }
+            fetchData();
+        }, []
+    );
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    } else if (loading) {
+        return <Loading/>;
+    } else {
+        return (
+            <div>
+                <PokemonCards response={response}/>
+                <Buttons/>
+            </div>
+        );
     }
 }
 
