@@ -14,27 +14,26 @@ export default function Registration(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch('http://localhost:8080/registration', {
-            method: 'put',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                "name": name,
-                "password": password,
-                "email": email
-            })
+        fetch('http://localhost:8080/registration',
+            {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    "name": name,
+                    "password": password,
+                    "email": email
+                })
+            }).then((responseJson) => {
+            console.log(responseJson);
+            if (responseJson.status === 404 || responseJson.status === 403) {
+                setError("Something went wrong!")
+            } else if (responseJson.status === 409) {
+                setError("Username already taken!")
+            } else {
+                props.history.push("/login")
+            }
         })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                if (responseJson.status === 404 || responseJson.status === 403) {
-                    setError("Something went wrong!")
-                } else if (responseJson.status === 409) {
-                    setError("Username already taken!")
-                } else {
-                    props.history.push("/login")
-                }
-            })
             .catch(reason => {
-                console.log(reason);
                 setError(reason.message);
             })
     }
