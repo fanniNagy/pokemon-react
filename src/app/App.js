@@ -13,11 +13,11 @@ import UserContext from "../component/authorization/UserContext"
 
 function App() {
     const [user, setUser] = useState(null);
-    const providerValue = useMemo(() => ({user, setUser}), [user, setUser]);
+    const userValue = useMemo(() => ({user, setUser}), [user, setUser]);
 
     return (
         <Router>
-            <UserContext.Provider value={providerValue}>
+            <UserContext.Provider value={userValue}>
                 <div className="App">
                     <NavigationBar/>
                     <Switch>

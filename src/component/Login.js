@@ -1,13 +1,13 @@
 import React, {useContext, useState} from "react";
 import {Button, FormControl, FormGroup, FormLabel} from "react-bootstrap";
-import {userContext} from "./authorization/UserContext";
+import {UserContext} from "./authorization/UserContext";
 
 export default function Login(props) {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
 
-    const {setUser} = useContext(userContext);
+    const {setUser} = useContext(UserContext);
 
     function validateForm() {
         return name.length > 0 && password.length > 0;
@@ -28,6 +28,8 @@ export default function Login(props) {
                 if (responseJson.status === 404 || responseJson.status === 403) {
                     setError("Incorrect name or password!")
                 } else {
+                    console.log(responseJson);
+                    console.log(responseJson.username);
                     setUser(responseJson);
                     props.history.push("/");
                 }

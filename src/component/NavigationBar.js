@@ -28,7 +28,7 @@ function NavigationBar() {
         if (user) {
             return (
                 <Link to={'/'} style={{textDecoration: 'none', color: 'yellow'}}>
-                    <li onClick={setUser(null)}> Logout</li>
+                    <li onClick={() => setUser(null)}> Logout</li>
                 </Link>
             )
         } else {
