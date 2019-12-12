@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Loading from "./Loading";
+import Loading from "./svg components/Loading";
 import PokemonDetails from "./PokemonDetails";
 
 function UserPage({match}) {

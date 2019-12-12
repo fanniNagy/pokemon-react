@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo, useState} from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavigationBar from "../component/NavigationBar";
@@ -8,22 +8,28 @@ import Search from "../component/Search";
 import User from "../component/UserPage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Login from "../component/Login";
+import UserContext from "../component/authorization/UserContext"
 
 
 function App() {
+    const [user, setUser] = useState(null);
+    const providerValue = useMemo(() => ({user, setUser}), [user, setUser]);
+
     return (
         <Router>
-            <div className="App">
-                <NavigationBar/>
-                <Switch>
-                    <Route path='/' exact component={DataContainer}/>
-                    <Route path='/search' component={Search}/>
-                    <Route path='/pokemon/:name' component={PokemonPage}/>
-                    <Route path='/profile' exact component={User}/>
-                    <Route path='/login' exact component={Login}/>
-                    <Route path='/register' exact component={User}/>
-                </Switch>
-            </div>
+            <UserContext.Provider value={providerValue}>
+                <div className="App">
+                    <NavigationBar/>
+                    <Switch>
+                        <Route path='/' exact component={DataContainer}/>
+                        <Route path='/search' component={Search}/>
+                        <Route path='/pokemon/:name' component={PokemonPage}/>
+                        <Route path='/profile' exact component={User}/>
+                        <Route path='/login' exact component={Login}/>
+                        <Route path='/register' exact component={User}/>
+                    </Switch>
+                </div>
+            </UserContext.Provider>
         </Router>
     );
 }

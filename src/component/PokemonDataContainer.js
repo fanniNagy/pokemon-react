@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Loading from "./Loading";
+import Loading from "./svg components/Loading";
 import PokemonCards, {Buttons} from "./PokemonCards";
 
 function DataContainer() {

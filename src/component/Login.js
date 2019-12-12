@@ -1,13 +1,16 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Button, FormControl, FormGroup, FormLabel} from "react-bootstrap";
+import {userContext} from "./authorization/UserContext";
 
 export default function Login(props) {
-    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
 
+    const {setUser} = useContext(userContext);
+
     function validateForm() {
-        return username.length > 0 && password.length > 0;
+        return name.length > 0 && password.length > 0;
     }
 
     function handleSubmit(event) {
@@ -16,20 +19,22 @@ export default function Login(props) {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                "username": username,
+                "username": name,
                 "password": password
             })
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
                 if (responseJson.status === 404 || responseJson.status === 403) {
                     setError("Incorrect name or password!")
+                } else {
+                    setUser(responseJson);
+                    props.history.push("/");
                 }
             })
             .catch(reason => {
                 console.log(reason);
-                setError(true);
+                setError(reason.message);
             })
     }
 
@@ -42,9 +47,9 @@ export default function Login(props) {
                     <FormLabel>Email</FormLabel>
                     <FormControl
                         autoFocus
-                        value={username}
+                        value={name}
                         onChange={e => {
-                            setUsername(e.target.value);
+                            setName(e.target.value);
                         }}
                     />
                 </FormGroup>
