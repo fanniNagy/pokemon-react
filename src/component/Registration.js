@@ -1,37 +1,36 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {Button, FormControl, FormGroup, FormLabel} from "react-bootstrap";
-import {UserContext} from "./authorization/UserContext";
 
-export default function Login(props) {
+export default function Registration(props) {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [secondPassword, setSecondPassword] = useState("");
     const [error, setError] = useState(null);
 
-    const {setUser} = useContext(UserContext);
-
     function validateForm() {
-        return name.length > 0 && password.length > 0;
+        return name.length > 0 && password.length > 0 && secondPassword.length > 0 && email.length > 0 && password === secondPassword;
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch('http://localhost:8080/auth/signin', {
-            method: 'post',
+        fetch('http://localhost:8080/registration', {
+            method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                "username": name,
+                "name": name,
                 "password": password,
+                "email": email
             })
         })
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.status === 404 || responseJson.status === 403) {
-                    setError("Incorrect name or password!")
+                    setError("Something went wrong!")
+                } else if (responseJson.status === 409) {
+                    setError("Username already taken!")
                 } else {
-                    setUser(responseJson);
-                    localStorage.setItem("userObject", JSON.stringify(responseJson));
-                    console.log(localStorage.getItem("userObject"));
-                    props.history.push("/");
+                    props.history.push("/login")
                 }
             })
             .catch(reason => {
@@ -45,13 +44,23 @@ export default function Login(props) {
             {(error !== null) ?
                 <div style={{'color': 'red'}}><FormLabel>{error}</FormLabel></div> : null}
             <form onSubmit={handleSubmit}>
-                <FormGroup controlId="email">
-                    <FormLabel>Email</FormLabel>
+                <FormGroup controlId="username">
+                    <FormLabel>Username</FormLabel>
                     <FormControl
                         autoFocus
                         value={name}
                         onChange={e => {
                             setName(e.target.value);
+                        }}
+                    />
+                </FormGroup>
+                <FormGroup controlId="email">
+                    <FormLabel>E-mail</FormLabel>
+                    <FormControl
+                        autoFocus
+                        value={email}
+                        onChange={e => {
+                            setEmail(e.target.value);
                         }}
                     />
                 </FormGroup>
@@ -65,8 +74,18 @@ export default function Login(props) {
                         type="password"
                     />
                 </FormGroup>
+                <FormGroup controlId="second-password">
+                    <FormLabel>Password again</FormLabel>
+                    <FormControl
+                        value={secondPassword}
+                        onChange={e => {
+                            setSecondPassword(e.target.value);
+                        }}
+                        type="password"
+                    />
+                </FormGroup>
                 <Button block disabled={!validateForm()} type="submit">
-                    Login
+                    Register
                 </Button>
             </form>
         </div>
