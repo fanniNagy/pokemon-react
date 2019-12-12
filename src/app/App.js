@@ -9,10 +9,13 @@ import User from "../component/UserPage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Login from "../component/Login";
 import UserContext from "../component/authorization/UserContext"
+import Registration from "../component/Registration";
 
 
 function App() {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() =>
+        (localStorage.getItem("userObject") !== null) ?
+            JSON.parse(localStorage.getItem("userObject")) : null);
     const userValue = useMemo(() => ({user, setUser}), [user, setUser]);
 
     return (
@@ -26,7 +29,7 @@ function App() {
                         <Route path='/pokemon/:name' component={PokemonPage}/>
                         <Route path='/profile' exact component={User}/>
                         <Route path='/login' exact component={Login}/>
-                        <Route path='/register' exact component={User}/>
+                        <Route path='/register' exact component={Registration}/>
                     </Switch>
                 </div>
             </UserContext.Provider>

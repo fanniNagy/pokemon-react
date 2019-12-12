@@ -20,7 +20,7 @@ export default function Login(props) {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 "username": name,
-                "password": password
+                "password": password,
             })
         })
             .then((response) => response.json())
@@ -28,9 +28,9 @@ export default function Login(props) {
                 if (responseJson.status === 404 || responseJson.status === 403) {
                     setError("Incorrect name or password!")
                 } else {
-                    console.log(responseJson);
-                    console.log(responseJson.username);
                     setUser(responseJson);
+                    localStorage.setItem("userObject", JSON.stringify(responseJson));
+                    console.log(localStorage.getItem("userObject"));
                     props.history.push("/");
                 }
             })
