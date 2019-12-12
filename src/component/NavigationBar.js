@@ -1,12 +1,65 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Link} from 'react-router-dom'
-import Jumbo from "./Jumbotron";
+import Logo from "./PokeLogo";
+import userContext from "./authorization/UserContext";
 
 
 function NavigationBar() {
+    const {user, setUser} = useContext(userContext);
+
+    function LoginOrProfile() {
+        if (user) {
+            return (
+                <Link to={'/profile'} style={{textDecoration: 'none', color: 'yellow'}}>
+                    <li> {user.username}'s Profile</li>
+                </Link>
+            )
+        } else {
+            return (
+                <Link to={'/login'} style={{textDecoration: 'none', color: 'yellow'}}>
+                    <li> Login</li>
+                </Link>
+
+            )
+        }
+    }
+
+    function LogoutOrRegister() {
+        if (user) {
+            return (
+                <Link to={'/'} style={{textDecoration: 'none', color: 'yellow'}}>
+                    <li onClick={() => {
+                        setUser(null);
+                        localStorage.removeItem("userObject")
+                    }}> Logout
+                    </li>
+                </Link>
+            )
+        } else {
+            return (
+                <Link to={'/register'} style={{textDecoration: 'none', color: 'yellow'}}>
+                    <li> Register</li>
+                </Link>
+            )
+        }
+    }
+
+    function AdminPage() {
+        if(user && user.username === 'admin') {
+            return (
+                <Link to={'/admin/ban'} style={{textDecoration: 'none', color: 'yellow'}}>
+                    <li>
+                        Users
+                    </li>
+                </Link>
+            )
+        }
+        return null;
+    }
+
     return (
         <div className={"header"}>
-            <Jumbo/>
+            <Logo/>
             <nav className={'navigation-bar'}>
                 <ul className={'nav-links'}>
                     <Link to={'/'} style={{textDecoration: 'none', color: 'yellow'}}>
@@ -15,13 +68,15 @@ function NavigationBar() {
                     <Link to={'/search'} style={{textDecoration: 'none', color: 'yellow'}}>
                         <li>Search Pokemon</li>
                     </Link>
-                    {/*<li>Login</li>*/}
-                    {/*<li>Register</li>*/}
+                    <LoginOrProfile/>
+                    <LogoutOrRegister/>
+                    <AdminPage/>
                 </ul>
             </nav>
         </div>
     )
 
 }
+
 
 export default NavigationBar;

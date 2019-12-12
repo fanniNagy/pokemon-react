@@ -1,5 +1,4 @@
-import React from "react";
-import {Capitalize} from "./PokemonCards";
+import React, {useContext} from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
@@ -7,10 +6,20 @@ import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from "react-bootstrap/Button";
+import userContext from "./authorization/UserContext";
+import HeartIcon from "./svg components/HeartIcon";
+import StarIcon from "./svg components/StarIcon";
+import PawIcon from "./svg components/PawIcon";
+import {Capitalize} from "./PokemonCards";
 
 function PokemonDetails(props) {
+
+    const {user} = useContext(userContext);
+
     const data = props.data;
     const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.data.id}.png`;
+
+    const svgSize = {width: '5vh', height: '5vh'};
 
     return (
         <div className={'pokemon-card-container'}>
@@ -24,11 +33,77 @@ function PokemonDetails(props) {
                 <ListGroup className="list-group-flush">
                     <ListGroupItem>Weight: ~ {data.weight / 10} kg</ListGroupItem>
                     <ListGroupItem>Height: ~ {data.height / 10} m</ListGroupItem>
+                    {(user !== null) ?
+                        <ListGroupItem>
+                            <div className="icon-container">
+                                <button onClick={() => saveToFavourite(data.id, user)} className='heart-container'>
+                                    <HeartIcon styleForIcon={svgSize}/></button>
+                                <button onClick={() => saveToWishList(data.id, user)} className='star-container'>
+                                    <StarIcon styleForIcon={svgSize}/></button>
+                                <button onClick={() => saveToCatchedList(data.id, user)}
+                                        className='paw-container'><PawIcon styleForIcon={svgSize}/></button>
+                            </div>
+                        </ListGroupItem>
+                        : null}
                 </ListGroup>
             </Card>
         </div>
 
     )
+}
+
+function saveToCatchedList(id, user) {
+
+    const token = user ? user.token : null;
+
+    fetch(`http://localhost:8080/pokemon/mypokemon/add/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+        .then((response) => response.text())
+        .catch((error) => {
+            console.error(error);
+            //TODO: proper error handling
+        });
+}
+
+function saveToWishList(id, user) {
+
+    const token = user ? user.token : null;
+
+    fetch(`http://localhost:8080/pokemon/wishlist/add/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+        .then((response) => response.text())
+        .catch((error) => {
+            console.error(error);
+            //TODO: proper error handling
+        });
+}
+
+function saveToFavourite(id, user) {
+
+    const token = user ? user.token : null;
+
+    fetch(`http://localhost:8080/pokemon/favourites/add/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+        .then((response) => response.text())
+        .catch((error) => {
+            console.error(error);
+            //TODO: proper error handling
+        });
 }
 
 function DisplayType(props) {
@@ -37,7 +112,8 @@ function DisplayType(props) {
         <div>
             {types.map(
                 (type, i) => (
-                    <Button style={{margin:'1px'}} variant="danger" key={i} className={type.name} >{Capitalize(type.name)}</Button>
+                    <Button style={{margin: '1px'}} variant="danger" key={i}
+                            className={type.name}>{Capitalize(type.name)}</Button>
                 )
             )}
         </div>
@@ -47,7 +123,7 @@ function DisplayType(props) {
 function Abilities(props) {
     const abilities = props.abilities;
     return (
-        <div style={{alignSelf:'center', margin:'1px'}}>
+        <div style={{alignSelf: 'center', margin: '1px'}}>
             <ButtonToolbar>
                 <DropdownButton drop="right" variant="secondary" title="Moves" id="dropdown-button-drop-right"
                                 key="right">
