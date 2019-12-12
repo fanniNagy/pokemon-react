@@ -4,7 +4,7 @@ import UserContext from "./authorization/UserContext";
 import Card from "react-bootstrap/Card";
 import {Capitalize} from "./PokemonCards";
 
-function FriendCards() {
+function PendingFriendCards() {
     const [error, hasError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [response, setResponse] = useState({});
@@ -18,7 +18,7 @@ function FriendCards() {
     useEffect(() => {
             async function fetchData() {
                 setLoading(true);
-                const response = await fetch(`http://localhost:8080/user/name/${username}/friends`, {
+                const response = await fetch(`http://localhost:8080/user/name/${username}/requests`, {
                     method: 'get',
                     headers: {
                         'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ function FriendCards() {
         return (
             <div className={"friends"}>
                 {friends.map(friend => (
-                    <Card bg="light" style={{width: '8rem', justifyContent: 'center', alignItems: 'center'}}
+                    <Card bg="secondary" style={{width: '8rem', justifyContent: 'center', alignItems: 'center'}}
                           key={friend.name}>
                         <Card.Header style={{backgroundColor: 'transparent'}}>
                             {Capitalize(friend.name)}
@@ -70,4 +70,4 @@ function FriendCards() {
     }
 }
 
-export default FriendCards;
+export default PendingFriendCards;

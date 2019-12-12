@@ -1,8 +1,8 @@
 import React from "react";
-import {Link} from "./PokemonCards";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import FriendCards from "./FriendCards";
+import PendingFriendCards from "./PendingFriendCards";
 
 function UserPage() {
 
@@ -21,7 +21,7 @@ function UserPage() {
                     Pending requests
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
-                    <Card.Body>Hello! I'm another body</Card.Body>
+                    <Card.Body><PendingFriendCards/></Card.Body>
                 </Accordion.Collapse>
             </Card>
         </Accordion></div>
