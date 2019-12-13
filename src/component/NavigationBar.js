@@ -44,6 +44,19 @@ function NavigationBar() {
         }
     }
 
+    function AdminPage() {
+        if(user && user.username === 'admin') {
+            return (
+                <Link to={'/admin/ban'} style={{textDecoration: 'none', color: 'yellow'}}>
+                    <li>
+                        Users
+                    </li>
+                </Link>
+            )
+        }
+        return null;
+    }
+
     return (
         <div className={"header"}>
             <Logo/>
@@ -57,6 +70,7 @@ function NavigationBar() {
                     </Link>
                     <LoginOrProfile/>
                     <LogoutOrRegister/>
+                    <AdminPage/>
                 </ul>
             </nav>
         </div>
