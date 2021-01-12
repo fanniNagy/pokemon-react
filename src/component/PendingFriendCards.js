@@ -3,17 +3,18 @@ import Loading from "./svg components/Loading";
 import UserContext from "./authorization/UserContext";
 import Card from "react-bootstrap/Card";
 import {Capitalize} from "./PokemonCards";
+import FriendRequest from "./FriendRequest";
+
 
 function PendingFriendCards() {
     const [error, hasError] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [response, setResponse] = useState({});
+    const [response, setResponse] = useState([]);
 
     const {user} = useContext(UserContext);
 
     const token = user ? user.token : " ";
     const username = user ? user.username : " ";
-
 
     useEffect(() => {
             async function fetchData() {
@@ -52,21 +53,51 @@ function PendingFriendCards() {
         );
     }
 
+    function acceptFriendship(friendName) {
+        async function fetchData() {
+            const response = await fetch(`http://localhost:8080/user/friend/${username}/accept-friend/${friendName}`, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                credentials: "same-origin"
+            });
+            if (response.status === 404 || response.status === 403) {
+                console.log(response);
+            } else {
+                console.log(response)
+            }
+        }
+
+        fetchData();
+    }
+
+    function PendingFriends(props) {
+        const friends = props.friends;
+        return (<div className={"friends"} style={{display: "block"}}>
+            {friends.map(friend => (
+                <Card bg="secondary" style={{width: '8rem', justifyContent: 'center', alignItems: 'center'}}
+                      key={friend.name} onClick={() => acceptFriendship(friend.name)}>
+                    <Card.Header style={{backgroundColor: 'transparent'}}>
+                        {Capitalize(friend.name)}
+                    </Card.Header>
+                </Card>
+            ))}
+        </div>);
+    }
+
     function Friends(props) {
         const friends = props.friends;
+        console.log(friends);
         return (
-            <div className={"friends"}>
-                {friends.map(friend => (
-                    <Card bg="secondary" style={{width: '8rem', justifyContent: 'center', alignItems: 'center'}}
-                          key={friend.name}>
-                        <Card.Header style={{backgroundColor: 'transparent'}}>
-                            {Capitalize(friend.name)}
-                        </Card.Header>
-                    </Card>
-                ))}
+            <div>
+                <div style={{display: "block"}}>
+                    <FriendRequest token={token} username={username}/>
+                </div>
+                <PendingFriends{...props}/>
             </div>
         )
-
     }
 }
 
