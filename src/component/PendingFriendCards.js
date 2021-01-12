@@ -6,11 +6,10 @@ import {Capitalize} from "./PokemonCards";
 import FriendRequest from "./FriendRequest";
 
 
-function PendingFriendCards() {
+function PendingFriendCards({reload, setReload}) {
     const [error, hasError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [response, setResponse] = useState([]);
-
     const {user} = useContext(UserContext);
 
     const token = user ? user.token : " ";
@@ -36,9 +35,8 @@ function PendingFriendCards() {
                     setLoading(false);
                 }
             }
-
             fetchData();
-        }, [token, username]
+        }, [token, username, reload]
     );
 
     if (error) {
@@ -66,7 +64,8 @@ function PendingFriendCards() {
             if (response.status === 404 || response.status === 403) {
                 console.log(response);
             } else {
-                console.log(response)
+                console.log(response);
+                setReload(!reload);
             }
         }
 

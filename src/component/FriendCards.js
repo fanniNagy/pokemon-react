@@ -4,7 +4,7 @@ import UserContext from "./authorization/UserContext";
 import Card from "react-bootstrap/Card";
 import {Capitalize} from "./PokemonCards";
 
-function FriendCards() {
+function FriendCards({reload}) {
     const [error, hasError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [response, setResponse] = useState({});
@@ -37,7 +37,7 @@ function FriendCards() {
             }
 
             fetchData();
-        }, [token, username]
+        }, [token, username, reload]
     );
 
     if (error) {

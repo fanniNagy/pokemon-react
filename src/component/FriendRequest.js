@@ -2,9 +2,15 @@ import React, {useState} from "react";
 
 export default function FriendRequest({token, username}){
     const [formData, setFormData] = useState("");
+    const [success, setSuccess] = useState(false);
 
     function RecruitFriend(event){
         setFormData(event.target.value);
+    }
+
+    function initiateSuccessMessage(){
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 3000);
     }
 
     function submitFriendRequest(event){
@@ -22,7 +28,9 @@ export default function FriendRequest({token, username}){
             if (response.status === 404 || response.status === 403) {
                 console.log(response);
             } else {
-                console.log(response)
+                initiateSuccessMessage();
+
+                console.log(response);
             }
         }
         fetchData();
@@ -31,7 +39,8 @@ export default function FriendRequest({token, username}){
 
     return(
         <form onSubmit={event => submitFriendRequest(event)}>
-            <input onChange={(event) => RecruitFriend(event)}/>
+            {success ? <div> Request sent to {formData}! </div> : null}
+            <input id="friendRequestInput" onChange={(event) => RecruitFriend(event)}/>
             <button type="submit">Request Friend</button>
         </form>
     );

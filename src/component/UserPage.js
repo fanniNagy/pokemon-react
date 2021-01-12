@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import FriendCards from "./FriendCards";
 import PendingFriendCards from "./PendingFriendCards";
 
+
 function UserPage() {
+
+    const [reloadNeeded, setReloadNeeded] = useState(false);
 
     return (
         <div className={"user-interface"}><Accordion defaultActiveKey="0">
@@ -13,7 +16,7 @@ function UserPage() {
                     Friends
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
-                    <Card.Body><FriendCards/></Card.Body>
+                    <Card.Body><FriendCards reload={reloadNeeded}/></Card.Body>
                 </Accordion.Collapse>
             </Card>
             <Card>
@@ -21,7 +24,7 @@ function UserPage() {
                     Pending requests
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
-                    <Card.Body><PendingFriendCards/></Card.Body>
+                    <Card.Body><PendingFriendCards reload={reloadNeeded} setReload={setReloadNeeded}/></Card.Body>
                 </Accordion.Collapse>
             </Card>
         </Accordion></div>
